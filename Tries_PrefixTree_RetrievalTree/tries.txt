@@ -1,0 +1,5 @@
+It the tree type data structure which is also known as Retrieval Trees and Prefix Trees.
+
+It is generally used to solve the problems based on Strings.
+
+these are k-ary tree where the parent node can have any number of children.
