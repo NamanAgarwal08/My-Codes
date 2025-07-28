@@ -178,7 +178,7 @@ public class Graph {
         
         dfs(graph);
         
-        System.out.println(hasPath(graph, 0, 7, new boolean[V]));
+        System.out.println(hasPath(graph, 0, 6, new boolean[V]));
 
     }
 }

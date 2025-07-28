@@ -1,0 +1,328 @@
+==> EDGES : 
+    1. uni-directional edges
+    2. bi-directional edges / undirected edges.
+
+    => Graphs having uni-directional edges are known as dirrected graphs.
+    => Graphs having undirected ya bi-directional edges are known as un-directed graphs.
+
+    --> In graph, an edge may associated with its weight which can be visualized as the cost of going from 
+    one node to another through that edge or the distance between them.
+
+    Note:
+    => this is not necessary the the weight will be having only positive values, it can have negative values or zero.
+
+    => if the graphs having edges without any weight, this is called unweighted graph.
+    => if the graphs having edges with weight, this is called weighted graph.
+
+
+
+==> STORING A GRAPH (Structure/Represent) :
+
+    1. Adjacency List (Popular Method)
+    2. Adjacency Matrix (Popular Method)
+    3. Edge List 
+    4. 2D Matrix (Implicit Graph)
+
+    1. Adjacency List => List of Lists 
+        -> Time Complexity = O(k) // k = number of edges attached to a particular vertex;
+        -> ArrayList of ArrayLists.
+        -> Array of ArrayList (which we use).
+        -> HashMap<vertex,List> // here vertex denote a node and List denotes the list of values/nodes from where the vertex is connected.
+        -> Advantages of Adjacency List : No extra info will we stored which results in saving memory, optimized.
+
+    2. Adjacency Matrix => if there are 'v' vertices in graph then, space complexity = O(v^2)
+        -> Time Complexity = O(v) // v =  number of vertices/nodes in graph.
+
+    3.Edge List
+        -> this is used to store the information about each edge that the particular edge is connecting which two vertices.
+        -> usually we don't use this method to represent the graph but for some problems such as sorting on edges, minimum spanning tree,etc., we use this method.
+
+    4.Implicit Graph
+        -> in this we are given a 2D matrix where we are standing on a cell (i,j) and we are asked to tell the distance to reach on another cell.
+        -> this is not a graph but a visualization of 2D matrix in the form of graph.
+        -> Eg.: Flood Fill Algorithm
+
+
+
+==> APPLICATIONS OF GRAPHS : [Interviews / Coding Tests , Used in Companies of reak life projects.]
+
+    1. MAPS (Shortest Path)
+    2. Social Network
+    3. Delivery Network (Shortest Cyclic Route) / School Van
+    4. Physics/Chemistry (Molecules)
+    5. Routing Algorithms (How routers transfer data packets from one place to another)
+    6. Machine Learning (Deep Learning -> Neural Network)
+    7. Dependency Graph 
+    8. Computer Vision (Image Segmentation)
+    9. Flood Fill Problem
+    10.Graph Databases (nebula, neo4G)
+    11.Research
+
+
+
+==> GRAPH TRAVERSALS
+
+    1. Breadth First Search (BFS)
+    2. Depth First Search (DFS)
+
+    1. Breadth First Search
+        -> go to immediate neighbours first
+        -> similar to level order traversal
+        -> requires queue data structure
+        -> a boolean array is also taken to make a record that each node is travelled only once
+    
+    2. Depth First Search
+        -> go to first neighbour and then travel to its first neighbours and continue for all neighbour recursively
+        -> recursive calls are made
+        -> a boolean array is also taken to make a record that each node is travelled only once
+
+
+
+==> CYCLES in GRAPH
+
+    for Undirected Graph :
+        -> DFS
+        -> BFS
+        -> DSU (Disjoint Set Union)
+
+    for Directed Graph :
+        -> DFS
+        -> BFS
+        -> Topological Sort (Kahn's Algorithm)
+
+
+
+==> CYCLE DETECTION
+
+    -> we use modified DFS to detect if there is a cycle in graph or not.
+
+    FOR UNDIRECTED GRAPHS :
+        -> three cases :
+            1. if neighbour is visited and its value is not equal to parent => TRUE
+            2. if neighbour is visited and its value is equal to parent => Can't Say (Simply continue)
+            3. if neighbour is not visited, then make a call for function with current as parent and neighbour as current node and check for the cycle.
+
+    FOR DIRECTED GRAPHS :
+        the approch we use for undirected graphs fails for directed graphs.
+        here we use an extra modified Stack(boolean type array) for recursion which is explicit, not implicit which will be used to track the nodes which will be called in recursion.
+        -> three cases :
+            1. if neighbour is visied in stack => TRUE
+            2. if neighbour is visited in visited array => Can't Say (Simply Continue)
+            3. if neighbour is not visited in visited array, make a recursive call with neighbour as curr and check if that contains cycle and return answer accordingly.
+
+        
+
+==> BIPARTITE GRAPHS
+
+    -> A Bipartite Graph is a graph whose vertices can be divided into two independent sets, U and V such that every edge
+       (u, v) either connects a vertex from U to V or a vertex from V to U. In other words, for every edge (u, v), either u
+       belongs to U and v to V, or u belongs to V and v to U. We can also say that there is no edge that connects vertices of
+       same set.
+
+    -> we use modified BFS to detect if a graph is bipartite or not.
+
+    -> Graph Coloring will be used.
+        -1 == no Color
+         0 == any color (say yellow)
+         1 == any other color (say blue)
+
+        Tree Conditions :
+            1. if neighbour has color same to current => False
+            2. if neighbour has opp. color to current => do nothing (Simply Continue)
+            3. if neighbour has no color => give it opposite color.
+
+    --> if a graph is divided into components, then its all components should be bipartite to call whole graph bipartite.
+    --> if even one component out of all components is non bipartite then the graph will not be considered bipartite. 
+
+    Note:
+        1. Acyclic => TRUE : the graphs which do not contain any cycle are always bipartite.
+        2. Even Cycle => TRUE : the graphs which contains cycle with even nodes are always bipartite.
+        3. Odd Cycle => FALSE : the graphs which contains cycle with odd nodes are not bipartite.
+
+
+
+==> TOPOLOGICAL SORTING :
+
+    -> Directed Acyclic Graph(DAG) is a directed graph with no cycles.
+    -> Topological sorting is used only for DAGs (not for non-DAGs)
+    -> It is a linear order of vertices such that every directed edge u -> v, 
+    
+    Note:
+        In this sorting, there is not a unique order of sorting we get. There can exist multiple correct orders satisfying the sorting condition.
+
+    TWO METHODS : 
+    1. modified DFS
+    2. BFS (Kahn,s Algorithm)
+        in-degree : number of incoming edges towards any node is indegree of a node.
+        out-degree : number of outgoing edges from any node is outdegree of node.
+
+        Note : 
+            -> A DAG(Directed Acyclic Graph) has atleast one vertex with in-degree 0 and one vertex with out-degree 0. 
+
+
+
+==> All PATHS FROM SOURCE TO DESTINATION :
+
+    -> we have to print all the paths from the given source point to given destination.
+    -> we will do this using DFS where we pass out src, des, and path along with graph in the function.
+    -> O(V^V)
+
+    Note :
+        We do this only for Directed Graphs as in Undirected Graphs there always a path which exists between any two nodes if there is a connection between them (direct or indirect).
+
+
+
+==> DIJKSTRA'S ALGORITHM : (dai-k-tras)
+
+    -> here we find the shortest path/distance from given source to all vertices in a Weighted Graph.
+    -> Optimization Problem (Greedy).
+    -> Relaxation Step : if ( dis[u] + dis[u -> v] < dis[v] ) then dis[v] = dis[u] + dis[u -> v] , here dis[v] means distance from source node to node v.
+    -> tc = O(V + Elog(V))  [V reflects the tc of vis or dist loop whereas ElogV reflects the tc of priority queue when we add new pair in pq]
+
+    Note :
+        1. there are many approaches to solve this ques such as using hashmap, priority queue, etc. 
+           here we will be using PriorityQueue(Min Heap (by default)) in BFS instead of normal queue.
+        2. Dijkstra is guaranteed only for the directed graph having edges with positive weights.
+           it doesn't guarantee right answer in case of negative weights.
+           To overcome this, we use another algorithm called Bellman Ford Algorithm.
+
+
+
+==> BELLMAN FORD ALGORITHM : 
+
+    -> like Dijkstra, here also  we find the shortest path/distance from given source to all vertices in a Weighted Graph.
+    -> this algorithm is especially designed for the directed graphs having negative weights, although we can always use this for all positive weights too.
+    -> unlike Dikjstra, it is DP based problem.
+    -> Perform this step V-1 times :
+        for all edges (u,v)
+            if ( dis[u] + dis[u -> v] < dis[v] )
+                dis[v] = dis[u] + dis[u -> v]
+        
+        Why V-1 times ?
+        if we find the longest path in our graph, suppose the longest path is between nodes u and v then, there will be V-1 nodes between these two nodes.
+        that's why we check the longest path once through these iterations, may be it gives least cost to reach there.
+
+        Note :
+            It's possible that we get our answer in very first iteration but in worst case, we get it in V-1th iteration.
+
+    Note :
+        Bellman Ford Algorithm doesn't work for negative weighted cycles.
+        Negative weighted cycle : if we get the sum of the cost of all the edges making a cycle,
+                                  and if comes negative then BellmanFord fails to give right answer in that case.
+                                  if it comes positve then there is no problem in using the algorithm.
+        it will stuck in a loop where at every iteration upon a cycle, we always get reduced weight on each edge. (do dry run)
+
+
+
+==> MINIMUM SPANNING TREE :
+
+    -> A minimum spanning tree (MST) or minimum weight spanning tree is a subset of the edges of a connected, edge-weighted undirected graph that connects all the vertices together,
+	without any cycles and with the minimum possible total edge weight.
+    -> We use Prim's Algorithm to find Minimum Spanning from given Graph.
+
+    ==> PRIM'S ALGORITHM :
+        -> MST Set : Two Sets in which a set1 contains the vertices which are added to the tree and the another set, set2 contains the vertices which are not added to the tree.
+        -> Visited Array : to track whether particular node is visited or not.
+        -> we can use any vertex as starting point, this do not effects the answer.
+        -> initially all the vertices lie set2 then adding those vertices to set1 one by one by switching the value in visited array from false to true parallely. 
+        -> now we will find all the edges from all vertices in set1 to the all vertices in set2 and choose the edge having minimum cost and add that corresponding node to set1.
+        -> we will be updating a variable "cost" by adding that minimum cost each time when we shift the node from set2 to set1.
+
+        -> Since we have to find the minimum cost each time, so will be using a Priority Queue to implement this which stores <vertex,cost>.
+
+
+
+==> DISJOINT SET DataStructure / UNION FIND DS / MERGE DS :
+
+    -> we use this to store and track non overlapping sets.
+    -> logically, it stores the elements in the form of sets/groups.
+    -> it has two operations : Find and Union.
+
+    eg: set1 : (1,2,3,4)
+        set2 : (5,6,7,8)
+
+    -> Find operation finds the set to which the element belongs to : eg: find(4) returns set1
+                                                                          find(7) returns set2
+
+    -> Union is used for joining : eg: union(4,8) it forms a single set containing the elements of the set to which 4 belongs to and the elements of the set to which 8 belongs to.
+        Note : if the parameters given in union function belong to same set, then the cycle forms within the set
+                therefore, we use this DS in Cycle Detection in undirected graphs as well as in Kruskals, Algorithm which is used for finding MST.
+    
+    -> to implement this, we the concept of Parent + Union by rank
+
+
+
+==> KRUSKAL'S ALGORITHM :
+
+    -> TC : O(V + ElogE)
+    -> This algorithm is used to find the MST.
+    -> It uses greedy Approach.
+    -> Steps : 1. sort all edges according to their costs.
+               2. take minimum cost edge.
+               3. if that edge forms cycle, then don't include it.
+               4. if that edge doesn't form cycle, then include it.
+    -> To detect the cycle, we use Union Find method.
+    -> In Step-4, including the means taking the union of the vertices joining that edge.
+    -> before taking the union we check their parent first, if they belongs to same parent, then we can,t add that edge to MST as it will form cycl;e in the graph.
+    
+
+
+==> FLOOD FILL ALGORITHM : LeetCode 733
+
+
+
+===> STRONGLY CONNECTED COMPONENT :
+
+    -> SCC is a component in which we can reach every vertex of the component from every other vertex in that component.
+    -> We will basically divide the given graph into its components fulfilling the above condition.
+    -> it is used for Directed Graphs only.
+    -> We use KOSARAJU's ALGORITHM to do this problem.
+
+
+    -> KOSARAJU'S ALGORITHM : // O(V+E)
+        => we use DFS (in reverse manner) to use this.
+        => Steps:
+            1. Get nodes in Stack (Topological Sort) // O(V+E)
+            2. Transpose the graph // O(V+E)
+            3. Do DFS on the stack nodes on the transpose graph. // O(V+E)
+        -> transpose the graph means reversing the nodes i.e. src-->des becomes des-->src 
+
+
+// O(V+E)
+==> BRIDGE IN GRAPHS : 
+
+    -> Bridge is an edge whose deletion results in increasing the connected components of the graph.
+    -> it is mostly done for undirected graphs.
+    -> We use Trajans Algorithm to find the number of brige in the graph.
+
+    -> TARJANS ALGORITHM :
+        => we use this algorothm for multiple problems such as Topological sort, Strongly Connected Components, Bridge in Graphs and Articulation points.
+        => Implement :
+            1. We make two arrays of size V(number of vertices) as : dt[] = new int[V] , discovery time of nodes
+                                                                     low[] = new int[V] , lowest discovery time of all neighbours including that node
+            2. Concept : on checking the edge connecting node u and v, and we are going from u to v and if dt[u] < low[v] then this edge is Bridge. 
+            3. it is DFS based algorithm.
+            4. in dfs, we will also pass the value of parent as argument
+            5. while traversing on neighbours, if we find a non visited neighbour and as the parent of the current node then we tend to ingore checking if it is bridge or not as it may be a bridge or may not be.
+            6. if we find the non visited neighbour not being its parent then we call DFS for this neighbour and after ending its DFS we update the lowest of current by comparing low[curr] and low[nbr],
+                after doing so, we will now check the condition of the bridge : if(dt[curr] < low[nbr]) -> print(bridge(curr,nbr));
+            7. if we find the neighbour already visited, then we are assured that this edge can never be a bridge as there is a path exists for reaching that neighbour node even if we remove this current edge,
+                but we update the lowest discovery time of that node by comparing the discovery time of neighbour by the current's discovery time.
+
+
+
+==> ARTICULATION POINT : //O(V+E)
+
+    -> A vertex in an undirected connected graph is an articulation point (or cut vertex) if removing it(and edges through it) increases the connected components of graph.
+
+    -> TARJAN'S ALGORITHM : 
+        Basic Concept of Tarjan's Algorithm : It works on the basic concept of Ancestor and Child.
+        A node 'A' that was doiscovered before the current node in DFS is the ancestor of the current node.
+
+        --> for articulation point : 
+            ==Case-1 : for root node (whose parent == -1): if no. of disconnected children > 1 , then this is the condition of AP
+            ==Case-2 : (if par != -1 && dt[u] < low[v]) if going from node u to node v, if there exists a single path between them, then this is also the condition of Articulation Point (u is AP).
+            ==Case-3 : (if par != -1 && dt[u] = low[v]) if u is the starting point of the cycle, then also u is AP.
+                        jab bhi kabhi cycle hoti hai graph me to saare nodes ka lowest ka value same hota hai 
+
+            == on combining case2 and case3 : if(par!=-1 && dt[u] <= low[v])
