@@ -1,0 +1,52 @@
+DP is a technique in computer programming that helps to efficiently solve a class of problems that have 
+overlapping subproblems and optimal structure property.
+
+Ways of Dp :
+1. memorization (top down) 
+    --> recursion
+    --> subproblems-> storage-> reuse
+
+2. tabulation (bottom up) [more efficient than memorization]
+    --> iterations
+    --> initialisation-> assign meaning-> start filling (from smaller towards larger)
+
+
+
+7 Impt Questions : 
+ 1. Fibonacci
+ 2. 0-1 Knapsack
+ 3. Unbounded Knapsack
+ 4. LCS(Longest Common Subsequence)
+ 5. Kadane's Algorithm (Arrays)
+ 6. catalan Number
+ 7. DP on Grid (2D Arrays)
+
+Note : 
+In tabulation or in memorization, extra memory to be used is decided on the basis of how many variables are changing its value.
+
+
+
+
+For 0-1 Knapsack :
+===> in 0-1 Knapsack, only n(the item number to be added or excluded) and W(weight of the knaosack left) are changing so we will have to make a 2-d array as extra space of nxW.
+===> In tabulation, i(row number) refers to the number of items we are refering and j(weight of knapsack) refers to the weight we are left weight
+    Eg : for the index i,j => 2,3 , the block i,j stores the max value we can store in the knapsack of weight 3 considering first 2 elements in the array.
+    
+For Target Sum Subset:
+===> in this, boolean matrix of n+1 x targetSum+1 will be made where i(number of items included from start),j(sum) refers whether by including any set of i elements we can get the sum j
+
+
+For Edit Distance (to convert a string to another string and count the number of operations (insert, delete and replace)) :
+===> if the current character matches then the answer will have no change with respect to the answer we got in reducing the lengths of both strings from current by 1.
+===> else we make three calls out of insert(add) , delete and replace and check the minimum of them and store the minimum of these in dp.
+
+
+For StringConversion :
+===> One direct approach to print total operations is that, we do the same thing as we were doing in edit distance code.
+===> rather than making three calls will make only two calls for insert and delete and store the minimum.
+
+===> there is some indirect approach, at first we can take the lcs of both the strings and calculate its length.
+===> for number of deletions we will subtract this length from total length of string1;
+===> for insertins counts, we will subtract this length from total length of string2,
+
+
